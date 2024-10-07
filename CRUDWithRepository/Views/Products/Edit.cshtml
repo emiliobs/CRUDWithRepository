@@ -35,8 +35,15 @@
             </div>
             <div class="flex-row mt-2">
                 <input type="submit" value="Update" class="btn btn-primary" />
-                <input type="submit" asp-action="Index" value="Back to List" class="btn btn-success" />
+                <a asp-action="Index" class="btn btn-success">Back to List</a>
             </div>
         </form>
     </div>
 </div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

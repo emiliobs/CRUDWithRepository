@@ -20,7 +20,7 @@
 
             <div class="flex-row">
                 <label asp-for="Price" class="col-form-label-lg"></label>
-                <input asp-for="Price" class="form-control" type="number" />
+                <input asp-for="Price"   class="form-control" type="number" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
 
@@ -31,8 +31,15 @@
             </div>
             <div class="flex-row mt-2">
                 <input type="submit" value="Create" class="btn btn-primary" />
-                <input type="submit" asp-action="Index" value="Back to List" class="btn btn-success" />
+                @* <input type="submit" asp-action="Index" value="Back to List" class="btn btn-success" /> *@
+                <a asp-action="Index" class="btn btn-success">Back to List</a>
             </div>
         </form>
     </div>
 </div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
