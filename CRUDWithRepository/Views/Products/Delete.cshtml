@@ -2,7 +2,7 @@
 @model Product
 
 @{
-    ViewData["Title"] = "Product Details";
+    ViewData["Title"] = "Delete Product";
 }
 
 
@@ -10,7 +10,7 @@
     <h2>@ViewData["Title"]</h2>
     <hr />
     <div class="shodow p-3 mb-5 bg-white rounded">
-        <form asp-action="Details">
+        <form asp-action="Details" method="post">
 
             <div class="flex-row">
                 <label asp-for="Id" class="col-form-label-lg"></label>
@@ -24,7 +24,7 @@
 
             <div class="flex-row">
                 <label asp-for="Price" class="col-form-label-lg"></label>
-                <input asp-for="Price" class="form-control" type="number"  readonly/>
+                <input asp-for="Price" class="form-control" type="number" readonly />
             </div>
 
             <div class="flex-row">
@@ -32,6 +32,7 @@
                 <input asp-for="Quantity" class="form-control" type="number" readonly />
             </div>
             <div class="flex-row mt-2">
+                <input type="submit" asp-action="Delete" value="Delete" class="btn btn-danger" />
                 <input type="submit" asp-action="Index" value="Back to List" class="btn btn-success" />
             </div>
         </form>
