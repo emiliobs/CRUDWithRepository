@@ -38,5 +38,41 @@ namespace CRUDWithRepository.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            if (id == 0)
+            {
+                return View();
+            }
+
+            var product = await _unitOfWork.ProductRepository.GetProductById(id);
+            if (product == null)
+            {
+                return View();
+            }
+
+            return View(product);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, Product product)
+        {
+            if (id != product.Id)
+            {
+                return View(product);
+            }
+
+            if (ModelState.IsValid)
+            {
+                await _unitOfWork.ProductRepository.Update(product);
+                await _unitOfWork.SaveAsync();
+                return RedirectToAction("Index");
+            }
+
+            return View(product);
+        }
     }
 }
