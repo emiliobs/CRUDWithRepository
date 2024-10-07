@@ -8,3 +8,4 @@
 ## Details Product View
 ![image](https://github.com/user-attachments/assets/2237d710-25ef-4d14-a399-09ca85a63be0)
 ## Delete Product View
+![image](https://github.com/user-attachments/assets/24979a60-c2f8-454d-ba0e-0bd3e98882c5)
