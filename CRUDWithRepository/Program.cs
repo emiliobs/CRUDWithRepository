@@ -1,4 +1,6 @@
 using CRUDWithRepository.DAL;
+using CRUDWithRepository.Repositories;
+using CRUDWithRepository.Repositories.Implementations;
 using Microsoft.EntityFrameworkCore;
 
 namespace CRUDWithRepository
@@ -11,6 +13,7 @@ namespace CRUDWithRepository
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             builder.Services.AddDbContext<MyDbContext>(options =>
             {
