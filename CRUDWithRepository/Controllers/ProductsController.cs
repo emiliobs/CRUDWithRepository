@@ -74,5 +74,22 @@ namespace CRUDWithRepository.Controllers
 
             return View(product);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            if (id == 0)
+            {
+                return View();
+            }
+
+            var product = await _unitOfWork.ProductRepository.GetProductById(id);
+            if (product == null)
+            {
+                return View();
+            }
+
+            return View(product);
+        }
     }
 }
