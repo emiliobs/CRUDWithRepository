@@ -9,7 +9,7 @@ namespace CRUDWithRepository.Models
 
         [Required]
         [DisplayName("Product Name")]
-        public string ProductName { get; set; }
+        public string ProductName { get; set; } = null!;
 
         [Required]
         public double Price { get; set; }
