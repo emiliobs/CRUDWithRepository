@@ -15,8 +15,16 @@ namespace CRUDWithRepository.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var products = await _unitOfWork.ProductRepository.GetProducts();
-            return View(products);
+            try
+            {
+                var products = await _unitOfWork.ProductRepository.GetProducts();
+                return View(products);
+            }
+            catch (Exception ex)
+            {
+                TempData["errorMessage"] = ex.Message;
+                return View();
+            }
         }
 
         [HttpGet]
@@ -29,11 +37,25 @@ namespace CRUDWithRepository.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Product product)
         {
-            if (ModelState.IsValid)
+            try
             {
-                await _unitOfWork.ProductRepository.Add(product);
-                await _unitOfWork.SaveAsync();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    await _unitOfWork.ProductRepository.Add(product);
+                    await _unitOfWork.SaveAsync();
+
+                    TempData["successMessage"] = "Product has been Created.";
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["errorMessage"] = "Model state is Invalid.";
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["errorMessage"] = ex.Message;
             }
 
             return View();
@@ -42,34 +64,56 @@ namespace CRUDWithRepository.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            if (id == 0)
+            try
             {
+                if (id == 0)
+                {
+                    return View();
+                }
+
+                var product = await _unitOfWork.ProductRepository.GetProductById(id);
+                if (product == null)
+                {
+                    return View();
+                }
+
+                return View(product);
+            }
+            catch (Exception ex)
+            {
+                TempData["errorMessage"] = ex.Message;
                 return View();
             }
-
-            var product = await _unitOfWork.ProductRepository.GetProductById(id);
-            if (product == null)
-            {
-                return View();
-            }
-
-            return View(product);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Product product)
         {
-            if (id != product.Id)
+            try
             {
-                return View(product);
-            }
+                if (id != product.Id)
+                {
+                    return View(product);
+                }
 
-            if (ModelState.IsValid)
+                if (ModelState.IsValid)
+                {
+                    await _unitOfWork.ProductRepository.Update(product);
+                    await _unitOfWork.SaveAsync();
+
+                    TempData["successMessage"] = "Product has been Update.";
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["errorMessage"] = "Model State is Invalid.";
+                }
+            }
+            catch (Exception ex)
             {
-                await _unitOfWork.ProductRepository.Update(product);
-                await _unitOfWork.SaveAsync();
-                return RedirectToAction("Index");
+                TempData["errorMessage"] = ex.Message;
             }
 
             return View(product);
@@ -78,52 +122,81 @@ namespace CRUDWithRepository.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            if (id == 0)
+            try
             {
+                if (id == 0)
+                {
+                    return View();
+                }
+
+                var product = await _unitOfWork.ProductRepository.GetProductById(id);
+                if (product == null)
+                {
+                    return View();
+                }
+
+                return View(product);
+            }
+            catch (Exception ex)
+            {
+                TempData["errorMessage"] = ex.Message;
                 return View();
             }
-
-            var product = await _unitOfWork.ProductRepository.GetProductById(id);
-            if (product == null)
-            {
-                return View();
-            }
-
-            return View(product);
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            if (id == 0)
+            try
             {
+                if (id == 0)
+                {
+                    return View();
+                }
+
+                var product = await _unitOfWork.ProductRepository.GetProductById(id);
+                if (product == null)
+                {
+                    return View();
+                }
+
+                return View(product);
+            }
+            catch (Exception ex)
+            {
+                TempData["errorMessage"] = ex.Message;
                 return View();
             }
-
-            var product = await _unitOfWork.ProductRepository.GetProductById(id);
-            if (product == null)
-            {
-                return View();
-            }
-
-            return View(product);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id, Product product)
         {
-            if (id != product.Id)
+            try
             {
-                return View(product);
+                if (id != product.Id)
+                {
+                    return View(product);
+                }
+
+                if (ModelState.IsValid)
+                {
+                    await _unitOfWork.ProductRepository.Delete(id);
+                    await _unitOfWork.SaveAsync();
+
+                    TempData["successMessage"] = "Product has been Delete.";
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["errorMessage"] = "Model State is Invalid.";
+                }
             }
-
-            if (ModelState.IsValid)
+            catch (Exception ex)
             {
-                await _unitOfWork.ProductRepository.Delete(id);
-                await _unitOfWork.SaveAsync();
-
-                return RedirectToAction("Index");
+                TempData["errorMessage"] = ex.Message;
             }
 
             return View(product);

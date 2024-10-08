@@ -35,6 +35,18 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            @if (TempData["successMessage"] != null)
+            {
+                <div class="alert alert-success" id="alert">
+                    <strong>Success! </strong>@TempData["successMessage"]
+                </div>
+            }
+            else if(TempData["errorMessage"] != null)
+            {
+                <div class="alert alert-danger" id="alert">
+                    <strong>Error! </strong>@TempData["errorMessage"]
+                </div>
+            }
             @RenderBody()
         </main>
     </div>
@@ -47,6 +59,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/customjs.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
