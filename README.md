@@ -6,6 +6,8 @@
 ## Edit Product View
 ![image](https://github.com/user-attachments/assets/90cc9ce3-370a-4e99-933f-e42c03564140)
 ## Details Product View
+![image](https://github.com/user-attachments/assets/d4d102a9-2b09-4130-a5f8-c695e8c807fa)
+## Delete Product View
 ![image](https://github.com/user-attachments/assets/2e20232a-d1f5-4fd6-90d1-8d4c9384b6ce)
 
 
